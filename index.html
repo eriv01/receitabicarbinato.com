@@ -70,7 +70,7 @@
         .question-text{font-size:clamp(17px,4.8vw,22px);font-weight:900;margin-bottom:18px;line-height:1.35;text-align:left}
 
         /* ===== VIDEO PLAYER ===== */
-        .video-wrap{position:relative;width:100%;background:#000;border-radius:14px;overflow:hidden;margin-bottom:16px;border:1px solid var(--border);aspect-ratio:9/16}
+        .video-wrap{position:relative;width:100%;background:#000;border-radius:14px;overflow:hidden;margin-bottom:10px;border:1px solid var(--border);aspect-ratio:9/16}
         .video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
         .video-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;z-index:20;gap:12px}
@@ -98,8 +98,28 @@
         .player-btn{background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
         .player-btn svg{width:22px;height:22px;fill:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
         .player-time{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.5px;flex:1;text-align:left}
-        /* Ícone mudo fixo (sem interação) */
-        .player-vol svg{opacity:.45}
+
+        /* Botão de volume clicável */
+        .player-vol svg{transition:opacity .2s}
+        .player-vol.muted svg{opacity:.4}
+
+        /* ===== AVISO CLIQUE PARA VER ===== */
+        .video-hint{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            background:rgba(239,68,68,.1);
+            border:1px solid rgba(239,68,68,.35);
+            border-radius:10px;
+            padding:10px 14px;
+            margin-bottom:16px;
+            animation:pulse-hint 2s ease-in-out infinite;
+        }
+        .video-hint-icon{font-size:18px;flex-shrink:0}
+        .video-hint-text{font-size:clamp(12px,3.2vw,14px);font-weight:900;color:#fff;line-height:1.35;text-align:left}
+        .video-hint-text span{color:var(--primary)}
+        @keyframes pulse-hint{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.25)}50%{box-shadow:0 0 0 6px rgba(239,68,68,.0)}}
 
         @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -126,7 +146,8 @@
                 <div class="vl-text">Carregando vídeo...</div>
             </div>
 
-            <video id="main-video" playsinline webkit-playsinline preload="auto" muted>
+            <!-- SEM muted — áudio ativo -->
+            <video id="main-video" playsinline webkit-playsinline preload="auto">
                 <source src="https://doram.shop/wp-content/uploads/2026/03/0322-1.mp4" type="video/mp4">
             </video>
 
@@ -139,31 +160,40 @@
 
             <!-- Controles -->
             <div class="player-controls">
-                <!-- Seekbar -->
                 <div class="player-seekbar" id="seekbar">
                     <div class="player-seekbar-fill" id="seekbar-fill" style="width:0%">
                         <div class="player-seekbar-thumb"></div>
                     </div>
                 </div>
-                <!-- Botões + tempo -->
                 <div class="player-bottom">
-                    <!-- Play/Pause -->
                     <button class="player-btn" id="play-btn" onclick="togglePlay()">
-                        <!-- pause icon (vídeo inicia tocando) -->
                         <svg id="icon-pause" viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
                         <svg id="icon-play" viewBox="0 0 24 24" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
                     </button>
-                    <!-- Tempo -->
                     <span class="player-time" id="player-time">0:00 / 0:00</span>
-                    <!-- Volume (decorativo — sempre mudo, sem interação) -->
-                    <div class="player-btn player-vol" style="cursor:default">
-                        <svg viewBox="0 0 24 24">
+                    <!-- Volume clicável -->
+                    <button class="player-btn player-vol" id="vol-btn" onclick="toggleMute()" style="cursor:pointer">
+                        <svg id="icon-vol-on" viewBox="0 0 24 24">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                            <path d="M19.07 4.93a10 10 0 010 14.14" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            <path d="M15.54 8.46a5 5 0 010 7.07" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        </svg>
+                        <svg id="icon-vol-off" viewBox="0 0 24 24" style="display:none">
                             <path d="M11 5L6 9H2v6h4l5 4V5z"/>
                             <line x1="23" y1="9" x2="17" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
                             <line x1="17" y1="9" x2="23" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                    </div>
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- ===== AVISO BACANA ===== -->
+        <div class="video-hint" id="video-hint">
+            <div class="video-hint-icon">👆</div>
+            <div class="video-hint-text">
+                <span>Toque no vídeo</span> para assistir com som!<br>
+                Ative o áudio para ver o protocolo completo.
             </div>
         </div>
 
@@ -236,6 +266,9 @@ const playerTime = document.getElementById('player-time');
 const iconPlay = document.getElementById('icon-play');
 const iconPause = document.getElementById('icon-pause');
 const playOverlay = document.getElementById('play-overlay');
+const iconVolOn = document.getElementById('icon-vol-on');
+const iconVolOff = document.getElementById('icon-vol-off');
+const videoHint = document.getElementById('video-hint');
 
 /* ---- Helpers ---- */
 function fmtTime(s){
@@ -249,20 +282,56 @@ function updateIcons(playing){
     if(playing){ playOverlay.classList.remove('visible'); }
     else        { playOverlay.classList.add('visible');   }
 }
+function updateVolIcon(){
+    iconVolOn.style.display  = vid.muted ? 'none'  : 'block';
+    iconVolOff.style.display = vid.muted ? 'block' : 'none';
+}
 
-/* ---- Autoplay após 1s ---- */
+/* ---- Autoplay mudo (necessário p/ autoplay funcionar no mobile) ----
+   Assim que o usuário interagir, remove o mudo automaticamente        */
+vid.muted = true;
+updateVolIcon();
+
 setTimeout(function(){
     loadingEl.classList.add('hidden');
     vid.play().then(function(){ updateIcons(true); })
              .catch(function(e){ console.log('Autoplay bloqueado:', e); updateIcons(false); });
 }, 1000);
 
+/* Ao primeiro clique/toque em QUALQUER lugar, remove o mudo */
+function unmuteOnInteraction(){
+    if(vid.muted){
+        vid.muted = false;
+        updateVolIcon();
+        /* Esconde o aviso após o som ser ativado */
+        videoHint.style.opacity='0';
+        videoHint.style.transition='opacity .4s';
+        setTimeout(function(){ videoHint.style.display='none'; }, 400);
+    }
+    document.removeEventListener('click', unmuteOnInteraction);
+    document.removeEventListener('touchstart', unmuteOnInteraction);
+}
+document.addEventListener('click', unmuteOnInteraction);
+document.addEventListener('touchstart', unmuteOnInteraction);
+
 /* ---- Play / Pause ---- */
 function togglePlay(){
     if(vid.paused){ vid.play(); updateIcons(true); }
     else          { vid.pause(); updateIcons(false); }
 }
-/* Clique no próprio vídeo também toggle */
+
+/* ---- Mute / Unmute manual ---- */
+function toggleMute(){
+    vid.muted = !vid.muted;
+    updateVolIcon();
+    if(!vid.muted){
+        videoHint.style.opacity='0';
+        videoHint.style.transition='opacity .4s';
+        setTimeout(function(){ videoHint.style.display='none'; }, 400);
+    }
+}
+
+/* Clique no próprio vídeo também toggle play */
 vid.addEventListener('click', togglePlay);
 
 /* Eventos do vídeo */
@@ -285,7 +354,6 @@ seekbar.addEventListener('click', function(e){
     var ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
     vid.currentTime = ratio * vid.duration;
 });
-/* Suporte touch na seekbar */
 seekbar.addEventListener('touchstart', function(e){
     e.preventDefault();
     var touch = e.touches[0];
