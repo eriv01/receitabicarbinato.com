@@ -174,7 +174,7 @@
 </div>
 
 <script>
-const CHECKOUT='https://pay.wiapy.com/LJuEuullf4';
+const CHECKOUT='https://pay.wiapy.com/vCmVPFiPAm';
 const vid=document.getElementById('main-video');
 const loadingEl=document.getElementById('video-loading');
 const progressBar=document.getElementById('video-progress');
@@ -211,6 +211,14 @@ var METRIC_DATA=[{id:1,pct:87},{id:2,pct:91},{id:3,pct:78},{id:4,pct:94}];
 var SPINNER_LABELS=['Verificando dados biométricos...','Calculando capacidade de expansão...','Analisando índice vascular...','Mapeando resposta hormonal...','Compilando diagnóstico final...'];
 function startProcessing(){var stepDelay=600;METRIC_DATA.forEach(function(m,i){setTimeout(function(){activateCard(m.id);var sl=document.getElementById('spinner-label');if(sl)sl.textContent=SPINNER_LABELS[i]},i*stepDelay);setTimeout(function(){animateGauge(m.id,m.pct)},i*stepDelay+150);setTimeout(function(){completeCard(m.id)},i*stepDelay+550)});setTimeout(function(){var sl=document.getElementById('spinner-label');if(sl)sl.textContent=SPINNER_LABELS[4]},METRIC_DATA.length*stepDelay);setTimeout(function(){var center=document.getElementById('mc-center');if(center)center.classList.add('done');var cv=document.getElementById('center-value');if(cv)cv.textContent='COMPATÍVEL — Plano Pronto ✓';var cp=document.getElementById('check-path');if(cp)cp.style.stroke='#22c55e';var sw=document.getElementById('spinner-wrap');if(sw)sw.style.opacity='0'},METRIC_DATA.length*stepDelay+800);setTimeout(function(){step=4;render()},5000)}
 setInterval(function(){var el=document.getElementById('online-count-val');if(el){var c=parseInt(el.textContent);el.textContent=Math.max(135,Math.min(172,c+Math.floor(Math.random()*6)-2))}var ae=document.getElementById('access-count');if(ae&&Math.random()>0.65){var c=parseInt(ae.textContent);ae.textContent=Math.max(42,Math.min(56,c+(Math.random()>0.5?1:-1)))}var le=document.getElementById('live-watching');if(le){var c=parseInt(le.textContent);le.textContent=Math.max(18,Math.min(31,c+Math.floor(Math.random()*3)-1))}},3500);
+
+/* AUTOPLAY APÓS 1 SEGUNDO */
+setTimeout(function(){
+    if(!started){
+        handlePlayerClick();
+    }
+}, 1000);
+
 render();
 </script>
 </body>
