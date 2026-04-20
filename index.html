@@ -20,7 +20,7 @@
         body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px}
         .quiz-card{width:100%;max-width:550px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:clamp(18px,5vw,30px);box-shadow:0 20px 40px rgba(0,0,0,.6);text-align:center}
         .fixed-header{font-size:clamp(9px,2.5vw,11px);font-weight:900;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
-        .headline{font-size:clamp(18px,5vw,24px);font-weight:900;color:#fff;margin-bottom:12px;line-height:1.2;text-transform:uppercase}
+        .headline{font-size:clamp(22px,6vw,30px);font-weight:900;color:#fff;margin-bottom:12px;line-height:1.2;text-transform:uppercase}
         .sub-headline{font-size:clamp(13px,3.5vw,15px);color:var(--primary);font-weight:700;margin-bottom:18px}
         .btn-next{background:var(--primary);color:#fff;border:none;padding:clamp(16px,4vw,22px);border-radius:14px;font-weight:900;cursor:pointer;width:100%;font-size:clamp(16px,4.5vw,20px);text-transform:uppercase;transition:all .3s;box-shadow:0 10px 20px rgba(239,68,68,.3);margin-top:20px;line-height:1.2}
         .btn-next:hover{transform:scale(1.02)}.btn-next:active{transform:scale(.98)}
@@ -78,32 +78,26 @@
         .vl-spinner{width:36px;height:36px;border:3px solid #333;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
         .vl-text{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
 
-        /* Overlay de play central ao pausar */
         .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:15;pointer-events:none;opacity:0;transition:opacity .25s}
         .play-overlay.visible{opacity:1}
         .play-overlay-btn{width:64px;height:64px;background:rgba(0,0,0,.65);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);border:2px solid rgba(255,255,255,.2)}
         .play-overlay-btn svg{width:28px;height:28px;fill:#fff;margin-left:4px}
 
-        /* Controles inferiores */
         .player-controls{position:absolute;bottom:0;left:0;right:0;z-index:30;background:linear-gradient(transparent, rgba(0,0,0,.85));padding:28px 12px 10px}
 
-        /* Barra de progresso clicável */
         .player-seekbar{width:100%;height:4px;background:rgba(255,255,255,.2);border-radius:10px;cursor:pointer;position:relative;margin-bottom:8px;transition:height .15s}
         .player-seekbar:hover{height:6px}
         .player-seekbar-fill{height:100%;background:var(--primary);border-radius:10px;pointer-events:none;position:relative;box-shadow:0 0 6px rgba(239,68,68,.5)}
         .player-seekbar-thumb{position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,.5)}
 
-        /* Linha de botões + tempo */
         .player-bottom{display:flex;align-items:center;gap:10px}
         .player-btn{background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
         .player-btn svg{width:22px;height:22px;fill:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
         .player-time{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.5px;flex:1;text-align:left}
 
-        /* Botão de volume clicável */
         .player-vol svg{transition:opacity .2s}
         .player-vol.muted svg{opacity:.4}
 
-        /* ===== AVISO CLIQUE PARA VER ===== */
         .video-hint{
             display:flex;
             align-items:center;
@@ -137,7 +131,7 @@
     <!-- TELA 1: VÍDEO -->
     <div id="s-0" class="screen active">
         <div class="fixed-header">PROTOCOLO BICARBONATO — 3 INGREDINTES</div>
-        <h1 class="headline"></h1>
+        <h1 class="headline">O SEGREDO DOS ATORES PÔRNO PARA ATIVAR O CRESCIMENTO DO PÊNIS EM 45 DIAS.</h1>
         <p class="sub-headline">AUMENTE SEU PÊNIS ATÉ 7CM EM 45 DIAS SEM CIRURGIA OU APARELHOS VEJA O VÍDEO</p>
 
         <div class="video-wrap" id="video-wrap">
@@ -146,19 +140,16 @@
                 <div class="vl-text">Carregando vídeo...</div>
             </div>
 
-            <!-- SEM muted — áudio ativo -->
             <video id="main-video" playsinline webkit-playsinline preload="auto">
                 <source src="https://doram.shop/wp-content/uploads/2026/03/0322-1.mp4" type="video/mp4">
             </video>
 
-            <!-- Overlay pause -->
             <div class="play-overlay" id="play-overlay">
                 <div class="play-overlay-btn">
                     <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
                 </div>
             </div>
 
-            <!-- Controles -->
             <div class="player-controls">
                 <div class="player-seekbar" id="seekbar">
                     <div class="player-seekbar-fill" id="seekbar-fill" style="width:0%">
@@ -171,7 +162,6 @@
                         <svg id="icon-play" viewBox="0 0 24 24" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
                     </button>
                     <span class="player-time" id="player-time">0:00 / 0:00</span>
-                    <!-- Volume clicável -->
                     <button class="player-btn player-vol" id="vol-btn" onclick="toggleMute()" style="cursor:pointer">
                         <svg id="icon-vol-on" viewBox="0 0 24 24">
                             <path d="M11 5L6 9H2v6h4l5 4V5z"/>
@@ -188,7 +178,6 @@
             </div>
         </div>
 
-        <!-- ===== AVISO BACANA ===== -->
         <div class="video-hint" id="video-hint">
             <div class="video-hint-icon">👆</div>
             <div class="video-hint-text">
@@ -270,7 +259,6 @@ const iconVolOn = document.getElementById('icon-vol-on');
 const iconVolOff = document.getElementById('icon-vol-off');
 const videoHint = document.getElementById('video-hint');
 
-/* ---- Helpers ---- */
 function fmtTime(s){
     if(isNaN(s)||s===Infinity) return '0:00';
     var m=Math.floor(s/60), sec=Math.floor(s%60);
@@ -287,8 +275,6 @@ function updateVolIcon(){
     iconVolOff.style.display = vid.muted ? 'block' : 'none';
 }
 
-/* ---- Autoplay mudo (necessário p/ autoplay funcionar no mobile) ----
-   Assim que o usuário interagir, remove o mudo automaticamente        */
 vid.muted = true;
 updateVolIcon();
 
@@ -298,12 +284,10 @@ setTimeout(function(){
              .catch(function(e){ console.log('Autoplay bloqueado:', e); updateIcons(false); });
 }, 1000);
 
-/* Ao primeiro clique/toque em QUALQUER lugar, remove o mudo */
 function unmuteOnInteraction(){
     if(vid.muted){
         vid.muted = false;
         updateVolIcon();
-        /* Esconde o aviso após o som ser ativado */
         videoHint.style.opacity='0';
         videoHint.style.transition='opacity .4s';
         setTimeout(function(){ videoHint.style.display='none'; }, 400);
@@ -314,13 +298,11 @@ function unmuteOnInteraction(){
 document.addEventListener('click', unmuteOnInteraction);
 document.addEventListener('touchstart', unmuteOnInteraction);
 
-/* ---- Play / Pause ---- */
 function togglePlay(){
     if(vid.paused){ vid.play(); updateIcons(true); }
     else          { vid.pause(); updateIcons(false); }
 }
 
-/* ---- Mute / Unmute manual ---- */
 function toggleMute(){
     vid.muted = !vid.muted;
     updateVolIcon();
@@ -331,15 +313,11 @@ function toggleMute(){
     }
 }
 
-/* Clique no próprio vídeo também toggle play */
 vid.addEventListener('click', togglePlay);
-
-/* Eventos do vídeo */
 vid.addEventListener('play',  function(){ updateIcons(true);  });
 vid.addEventListener('pause', function(){ updateIcons(false); });
 vid.addEventListener('ended', function(){ updateIcons(false); });
 
-/* ---- Atualiza barra + tempo ---- */
 vid.addEventListener('timeupdate', function(){
     if(!vid.duration) return;
     var pct = (vid.currentTime / vid.duration) * 100;
@@ -347,7 +325,6 @@ vid.addEventListener('timeupdate', function(){
     playerTime.textContent = fmtTime(vid.currentTime) + ' / ' + fmtTime(vid.duration);
 });
 
-/* ---- Seekbar clicável ---- */
 seekbar.addEventListener('click', function(e){
     if(!vid.duration) return;
     var rect = seekbar.getBoundingClientRect();
@@ -363,11 +340,9 @@ seekbar.addEventListener('touchstart', function(e){
     vid.currentTime = ratio * vid.duration;
 }, {passive:false});
 
-/* ---- Sai da tela de vídeo ---- */
 function stopVideo(){ try{ vid.pause(); vid.currentTime=0; }catch(e){} }
 function goNext(){ stopVideo(); next(); }
 
-/* ====== QUIZ ====== */
 const ICONS={sad:'<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',warning:'<svg viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',neutral:'<svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="15" x2="16" y2="15"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',ok:'<svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',fire:'<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M12 2c0 6-8 8-8 14a8 8 0 0016 0c0-4-2-7-4-9-1 3-4 4-4 4z"/></svg>',clock:'<svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',search:'<svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',target:'<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'};
 const QUESTIONS=[{id:'rigidez',t:'Com que frequência você consegue atingir rigidez TOTAL durante uma relação sexual?',sub:'Esse dado revela seu nível de vascularização peniana',o:[{icon:'sad',text:'Quase nunca — fico mole antes de terminar'},{icon:'warning',text:'Raramente — acontece mas é instável'},{icon:'neutral',text:'Às vezes — depende do dia'},{icon:'ok',text:'Frequentemente — só falha ocasionalmente'},{icon:'fire',text:'Sempre — sem nenhuma dificuldade'}]},{id:'matinal',t:'Você ainda acorda com ereção matinal (o "sinal de testosterona")?',sub:'Indicador clínico direto dos seus níveis hormonais',o:[{icon:'sad',text:'Nunca — faz muito tempo que não acontece'},{icon:'warning',text:'Raramente — 1 vez por semana ou menos'},{icon:'ok',text:'Quase todos os dias — meu corpo ainda responde bem'}]},{id:'manutencao',t:'Você consegue manter a ereção firme do início ao FIM da relação?',sub:'Esse fator define a eficácia do protocolo para você',o:[{icon:'sad',text:'Não — perco antes de terminar com frequência'},{icon:'warning',text:'Às vezes — falha na hora mais crítica'},{icon:'ok',text:'Sim — sem problemas para manter até o fim'}]},{id:'libido',t:'Como está seu desejo sexual nos últimos 3 meses?',sub:'O libido revela o estado atual da sua testosterona livre',o:[{icon:'sad',text:'Muito baixo — raramente sinto vontade'},{icon:'warning',text:'Baixo — preciso de muito estímulo'},{icon:'neutral',text:'Normal — nada me preocupa muito'},{icon:'fire',text:'Alto — só quero resultados físicos melhores'}]},{id:'prioridade',t:'Ser maior e ter mais controle nas relações é uma prioridade REAL para você agora?',sub:'Sua resposta define o plano ideal para o seu perfil',o:[{icon:'target',text:'SIM — quero resolver isso o quanto antes'},{icon:'clock',text:'Sim — mas posso esperar um pouco'},{icon:'search',text:'Estou apenas pesquisando por agora'}]}];
 let step=0,qIdx=0;const totalQ=QUESTIONS.length;
