@@ -55,7 +55,6 @@
         }
         .video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
-        /* Grande botão play vermelho — visível quando pausado */
         .big-play-btn{
             position:absolute;inset:0;display:flex;flex-direction:column;
             align-items:center;justify-content:center;z-index:20;cursor:pointer;
@@ -83,7 +82,6 @@
             50%{box-shadow:0 0 0 22px rgba(239,68,68,.08),0 0 60px rgba(239,68,68,.7)}
         }
 
-        /* Controles inferiores — aparecem só após dar play */
         .player-controls{
             position:absolute;bottom:0;left:0;right:0;z-index:30;
             background:linear-gradient(transparent, rgba(0,0,0,.85));
@@ -162,6 +160,23 @@
         .center-label{font-size:clamp(9px,2.5vw,11px);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
         .center-value{font-size:clamp(14px,4vw,17px);font-weight:900;color:#fff}
 
+        /* ===== BOTÃO DA ANÁLISE ===== */
+        .btn-analise{
+            display:none;width:100%;margin-top:24px;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#fff;border:none;padding:clamp(16px,4vw,22px);
+            border-radius:14px;font-weight:900;cursor:pointer;
+            font-size:clamp(16px,4.5vw,20px);text-transform:uppercase;
+            box-shadow:0 10px 30px rgba(34,197,94,.35);
+            animation:pulse-green 2.2s ease-in-out infinite;
+            line-height:1.2;
+        }
+        .btn-analise:active{transform:scale(.98)}
+        @keyframes pulse-green{
+            0%,100%{box-shadow:0 10px 30px rgba(34,197,94,.35),0 0 0 0 rgba(34,197,94,.25)}
+            50%{box-shadow:0 10px 40px rgba(34,197,94,.5),0 0 0 12px rgba(34,197,94,0)}
+        }
+
         /* ===== OFERTA ===== */
         .result-hero{background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(34,197,94,.05));border:3px solid var(--green);padding:clamp(16px,4vw,24px) clamp(14px,3.5vw,22px);border-radius:20px;margin:20px 0;box-shadow:0 15px 40px rgba(34,197,94,.2);text-align:center}
         .result-label{font-size:clamp(10px,2.8vw,12px);color:#9ca3af;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:6px}
@@ -191,15 +206,14 @@
     <!-- TELA 1: VÍDEO PRINCIPAL -->
     <div id="s-0" class="screen active">
         <div class="fixed-header">PROTOCOLO BICARBONATO — 3 INGREDIENTES</div>
-        <h1 class="headline">O SEGREDO DOS ATORES PARA ATIVAR O CRESCIMENTO DO PÊNIS EM 45 DIAS.</h1>
-        <p class="sub-headline">AUMENTE ATÉ 7CM DO SEU PÊNIS EM 45 DIAS SEM CIRURGIA OU APARELHOS — ASSISTA O VÍDEO</p>
+        <h1 class="headline">O SEGREDO DOS ATORES PARA ATIVAR O CRESCIMENTO DO EM 45 DIAS.</h1>
+        <p class="sub-headline">AUMENTE ATÉ 7CM DO SEU EM 45 DIAS SEM CIRURGIA OU APARELHOS — ASSISTA O VÍDEO</p>
 
         <div class="video-wrap" id="video-wrap">
             <video id="main-video" playsinline webkit-playsinline preload="auto">
                 <source src="https://doram.shop/wp-content/uploads/2026/03/0322-1.mp4" type="video/mp4">
             </video>
 
-            <!-- Botão grande vermelho centralizado -->
             <div class="big-play-btn" id="big-play-btn" onclick="bigPlay()">
                 <div class="big-play-circle">
                     <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
@@ -207,7 +221,6 @@
                 <div class="big-play-label">▶ Toque para assistir</div>
             </div>
 
-            <!-- Controles inferiores — visíveis só após play -->
             <div class="player-controls">
                 <div class="player-seekbar" id="seekbar">
                     <div class="player-seekbar-fill" id="seekbar-fill" style="width:0%">
@@ -278,6 +291,9 @@
             <div class="metric-card" id="mc-4"><div class="gauge-wrap"><svg class="gauge-svg" width="56" height="56" viewBox="0 0 56 56"><circle class="gauge-bg" cx="28" cy="28" r="22"/><circle class="gauge-fill" id="gf-4" cx="28" cy="28" r="22" stroke="#ef4444"/></svg><div class="gauge-text" id="gv-4">—</div></div><div class="metric-label">Resposta Hormonal</div><div class="metric-status" id="ms-4">Aguardando</div></div>
             <div class="analysis-center" id="mc-center"><svg class="center-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#333" stroke-width="2"/><path d="M12 20l5 5 11-10" stroke="#444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="check-path"/></svg><div><div class="center-label">Compatibilidade com Protocolo</div><div class="center-value" id="center-value">Calculando...</div></div></div>
         </div>
+
+        <!-- BOTÃO ADICIONADO — aparece só após análise concluída -->
+        <button class="btn-analise" id="btn-analise" onclick="abrirPlano()">✅ VER MEU PLANO PERSONALIZADO</button>
     </div>
 
     <!-- TELA 5: OFERTA -->
@@ -360,24 +376,9 @@
 <script>
 var CHECKOUT = 'https://pay.wiapy.com/vCmVPFiPAm';
 
-/* ===================================================
-   RASTREAMENTO DE INTERAÇÃO
-   Browsers mobile só permitem áudio após gesto do usuário.
-   O big play da tela 1 é o gesto que libera o áudio.
-=================================================== */
 var userInteracted = false;
 function markInteracted(){ userInteracted = true; }
 
-/* ===================================================
-   VÍDEO PRINCIPAL — TELA 01
-   REGRAS:
-   - Começa PAUSADO e MUDO
-   - Botão grande vermelho centralizado com pulso
-   - Ao clicar no big play: desmuta + dá play + esconde o botão
-   - Controles inferiores aparecem só após primeiro play
-   - Clique no vídeo após play iniciado: pausa/retoma
-   - Botão "Liberar" para o vídeo ANTES de mudar de tela
-=================================================== */
 var vid         = document.getElementById('main-video');
 var videoWrap   = document.getElementById('video-wrap');
 var bigPlayBtn  = document.getElementById('big-play-btn');
@@ -389,7 +390,7 @@ var iconPause   = document.getElementById('icon-pause');
 var iconVolOn   = document.getElementById('icon-vol-on');
 var iconVolOff  = document.getElementById('icon-vol-off');
 
-vid.muted = true; // começa mudo (necessário para preload funcionar)
+vid.muted = true;
 
 function updatePlayIcons(playing){
     iconPlay.style.display  = playing ? 'none'  : 'block';
@@ -402,17 +403,15 @@ function updateVolIcon(){
 updateVolIcon();
 updatePlayIcons(false);
 
-// Big play — gesto inicial do usuário, libera áudio no browser
 function bigPlay(){
     markInteracted();
-    vid.muted = false; // desmuta DENTRO do gesto → browser permite
+    vid.muted = false;
     updateVolIcon();
     vid.play().then(function(){
         bigPlayBtn.classList.add('hidden');
         videoWrap.classList.add('playing');
         updatePlayIcons(true);
     }).catch(function(){
-        // Fallback: tenta com mute se política de autoplay bloquear
         vid.muted = true;
         updateVolIcon();
         vid.play().then(function(){
@@ -423,9 +422,8 @@ function bigPlay(){
     });
 }
 
-// Clique direto no vídeo após já estar rodando — pausa/retoma
 vid.addEventListener('click', function(){
-    if(!bigPlayBtn.classList.contains('hidden')) return; // big play ainda visível, ignora
+    if(!bigPlayBtn.classList.contains('hidden')) return;
     togglePlay();
 });
 
@@ -478,7 +476,6 @@ function fmtTime(s){
     return m + ':' + (sec < 10 ? '0' : '') + sec;
 }
 
-// Para o vídeo 1 completamente antes de avançar para tela 2
 function stopVideo(){
     try{ vid.pause(); vid.currentTime = 0; }catch(e){}
     bigPlayBtn.classList.remove('hidden');
@@ -488,12 +485,6 @@ function stopVideo(){
 
 function goNext(){ stopVideo(); next(); }
 
-/* ===================================================
-   VÍDEO DEPOIMENTO — TELA 02
-   - Inicia sempre mudo (garante autoplay)
-   - Se userInteracted === true: desmuta imediatamente
-   - Se não: mostra barra "🔊 Toque para ouvir"
-=================================================== */
 var depVid      = document.getElementById('dep-video');
 var depSoundBar = document.getElementById('dep-sound-bar');
 
@@ -528,9 +519,6 @@ function stopDepVideo(){
 
 function goNextS1(){ stopDepVideo(); next(); }
 
-/* ===================================================
-   VÍDEOS MINI — TELA 05 (3 depoimentos)
-=================================================== */
 var miniVideos = [
     {vid: document.getElementById('dep-video-mini-1'), btn: document.getElementById('dep-mini-play-btn-1'), playing: false},
     {vid: document.getElementById('dep-video-mini-2'), btn: document.getElementById('dep-mini-play-btn-2'), playing: false},
@@ -607,7 +595,35 @@ function next(){
 }
 
 function sel(id, val){ setTimeout(next, 120); }
-function finish(){ stopAllMiniVideos(); window.location.href = CHECKOUT; }
+
+/* ===================================================
+   FUNÇÃO DO BOTÃO — ABRE NO NAVEGADOR EXTERNO
+   Resolve o problema do TikTok in-app browser
+=================================================== */
+function abrirPlano(){
+    var url = CHECKOUT;
+    // Tenta abrir no navegador externo (Android intent)
+    var intentUrl = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+    // Detecta Android
+    if(/Android/i.test(navigator.userAgent)){
+        window.location = intentUrl;
+        // Fallback caso o intent não funcione
+        setTimeout(function(){ window.open(url, '_blank'); }, 800);
+    } else {
+        // iOS e outros: abre direto com _blank
+        var a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        // Fallback
+        setTimeout(function(){ window.location.href = url; }, 500);
+    }
+}
+
+function finish(){ stopAllMiniVideos(); abrirPlano(); }
 
 function render(){
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
@@ -662,7 +678,11 @@ function startProcessing(){
         var cv=document.getElementById('center-value');  if(cv) cv.textContent='COMPATÍVEL — Plano Pronto ✓';
         var cp=document.getElementById('check-path');    if(cp) cp.style.stroke='#22c55e';
         var sw=document.getElementById('spinner-wrap');  if(sw) sw.style.opacity='0';
+        // Exibe o botão após análise concluída
+        var btn=document.getElementById('btn-analise'); if(btn) btn.style.display='block';
+        document.querySelector('.quiz-card').scrollIntoView({behavior:'smooth', block:'end'});
     }, METRIC_DATA.length*d+800);
+    // Avança automaticamente depois de 5s (mantém comportamento original)
     setTimeout(function(){ step=4; render(); }, 5000);
 }
 
