@@ -175,30 +175,17 @@
         .intro-video-wrap{position:relative;width:100%;border-radius:12px;overflow:hidden;border:1px solid #222;background:#000}
         .intro-video-wrap video{width:100%;height:auto;display:block}
 
-        /* seta pulsando passo 1 — aponta para canto superior direito */
-        .arrow-top-right{
-            position:absolute;top:10px;right:10px;z-index:10;
-            display:flex;flex-direction:column;align-items:center;gap:4px;
+        /* seta pulsando ao lado do título apontando para os 3 pontinhos */
+        .arrow-header{
+            display:inline-flex;flex-direction:column;align-items:center;gap:3px;
+            vertical-align:middle;margin-left:8px;
             animation:arrow-bounce-tr 1.1s ease-in-out infinite;
         }
-        .arrow-top-right svg{width:28px;height:28px;filter:drop-shadow(0 0 6px rgba(239,68,68,.8))}
+        .arrow-header svg{width:22px;height:22px;filter:drop-shadow(0 0 6px rgba(239,68,68,.8))}
         .arrow-tap{font-size:9px;font-weight:900;color:var(--primary);letter-spacing:1px;text-transform:uppercase;text-shadow:0 0 8px rgba(239,68,68,.7)}
         @keyframes arrow-bounce-tr{
             0%,100%{transform:translate(0,0)}
             50%{transform:translate(4px,-5px)}
-        }
-
-        /* seta pulsando passo 2 — aponta para o texto "Abrir no navegador" */
-        .arrow-menu-item{
-            display:inline-flex;align-items:center;gap:6px;
-            margin-top:10px;
-            animation:arrow-bounce-left 1.1s ease-in-out infinite;
-        }
-        .arrow-menu-item svg{width:22px;height:22px;filter:drop-shadow(0 0 5px rgba(239,68,68,.8))}
-        .arrow-menu-item span{font-size:10px;font-weight:900;color:var(--primary);letter-spacing:1px;text-transform:uppercase}
-        @keyframes arrow-bounce-left{
-            0%,100%{transform:translateX(0)}
-            50%{transform:translateX(-5px)}
         }
 
         /* ===== AVISO NAVEGADOR EXTERNO ===== */
@@ -240,7 +227,12 @@
 
     <!-- TELA 0: INSTRUÇÃO ABRIR NO NAVEGADOR -->
     <div id="s-intro" class="screen">
-        <div class="fixed-header">⚠️ PASSO OBRIGATÓRIO ANTES DE CONTINUAR</div>
+        <div class="fixed-header">⚠️ PASSO OBRIGATÓRIO ANTES DE CONTINUAR
+            <span class="arrow-header">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H9M19 5v10" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="arrow-tap">Toque aqui</span>
+            </span>
+        </div>
         <h2 class="headline" style="font-size:clamp(18px,5vw,24px)">PARA VER O VÍDEO COM A FÓRMULA SECRETA, SIGA OS 2 PASSOS ABAIXO</h2>
         <p style="font-size:clamp(12px,3.2vw,14px);color:var(--muted);margin-bottom:20px;font-weight:600;line-height:1.5">O conteúdo é protegido e só funciona no navegador. Siga exatamente como mostrado:</p>
 
@@ -252,12 +244,8 @@
             </div>
             <div class="intro-video-wrap">
                 <video id="intro-vid-1" playsinline webkit-playsinline preload="auto" muted loop autoplay disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback">
-                    <source src="https://metodotripe.shop/wp-content/uploads/2026/05/01-OK.mp4" type="video/mp4">
+                    <source src="https://metodotripe.shop/wp-content/uploads/2026/05/ex-01-1.mp4" type="video/mp4">
                 </video>
-                <div class="arrow-top-right">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 19L19 5M19 5H9M19 5v10" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span class="arrow-tap">Toque aqui</span>
-                </div>
             </div>
         </div>
 
@@ -271,10 +259,6 @@
                 <video id="intro-vid-2" playsinline webkit-playsinline preload="auto" muted loop autoplay disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback">
                     <source src="https://metodotripe.shop/wp-content/uploads/2026/05/ex-01-2.mp4" type="video/mp4">
                 </video>
-            </div>
-            <div class="arrow-menu-item">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Toque em "Abrir no navegador"</span>
             </div>
         </div>
 
